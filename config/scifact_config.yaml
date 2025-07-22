@@ -1,0 +1,35 @@
+teacher_model: "sentence-transformers/all-MiniLM-L6-v2"
+student_model: "sentence-transformers/all-MiniLM-L12-v2"
+
+# Qdrant Vector Database Configuration
+qdrant:
+  url: "http://localhost:6333"
+  collection: "scifact"
+  vector_size: 384
+  distance: "cosine"
+
+# Dataset Configuration
+dataset:
+  corpus: "data/SciFact.jsonl"
+  queries: "data/queries.jsonl"
+  qrels_train: "data/train.tsv"
+  qrels_test: "data/test.tsv"
+
+# Training Configuration
+training:
+  batch_size: 32
+  learning_rate: 2e-5
+  num_epochs: 3
+  temperature: 4.0
+  alpha: 0.5  # Weight for distillation loss
+
+# Evaluation Configuration
+evaluation:
+  metrics: ["ndcg", "recall", "map"]
+  k_values: [1, 5, 10]
+  
+# Logging Configuration
+logging:
+  level: "INFO"
+  save_results: true
+  output_dir: "results/"
